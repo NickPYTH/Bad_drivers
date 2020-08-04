@@ -12,7 +12,7 @@ class Users(models.Model):
   processing_reports = models.IntegerField(default=None)
 
 class Achivments(models.Model):
-  achivment_name = models.CharField()
+  achivment_name = models.CharField(max_length= 30)
   achivment_description = models.TextField()
-  achivment_icon_id = models.CharField()
+  achivment_icon_id = models.CharField(max_length= 10)
 
