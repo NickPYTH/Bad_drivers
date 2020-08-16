@@ -3,3 +3,5 @@ djangorestframework
 gunicorn
 gevent
 psycopg2-binary
+djoser
+djangorestframework_simplejwt

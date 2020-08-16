@@ -2,31 +2,25 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
 import json
-from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView        
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .models import Users, Achivments, ActualTokens
+from .models import Users, Achivments
 from rest_framework import serializers
 from .serializers import UserSerializer, AchivmentsSerializer
 from django.contrib.auth.models import User
-from uuid import uuid4
+from rest_framework.generics import (ListCreateAPIView,RetrieveUpdateDestroyAPIView,CreateAPIView)
+from .permissions import IsOwnerProfileOrReadOnly
 
-def token_check(token):
-    if list(ActualTokens.objects.filter(token=token)):
-        return True
-    else:
-        return False
 
 @csrf_exempt
 def create_user(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode())
-        if token_check(data.get("token")):
-            Users.objects.create(
+        Users.objects.create(
                 user_name=data.get("user_name"),
                 user_real_name=data.get("user_real_name"),    
                 user_email=data.get("user_email"),
@@ -37,17 +31,16 @@ def create_user(request):
                 decline_reports=data.get("decline_reports"),
                 processing_reports=data.get("processing_reports"),                     
                 )
-            return HttpResponse()
+        return HttpResponse()
     return HttpResponse()
 
 @csrf_exempt
 def get_user_info(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode())
-        if token_check(data.get("token")):
-            try:
-                user_info = Users.objects.get(user_name=data.get("user_name"))
-                data = {
+        try:
+            user_info = Users.objects.get(user_name=data.get("user_name"))
+            data = {
                     "user_name": user_info.user_name,
                     "user_real_name": user_info.user_real_name,
                     "user_email": user_info.user_email,
@@ -57,40 +50,48 @@ def get_user_info(request):
                     "send_reports": user_info.send_reports,
                     "decline_reports": user_info.decline_reports,
                     "processing_reports": user_info.processing_reports,
-                }
-                return HttpResponse(json.dumps(data))
-            except:
-                return HttpResponse(json.dumps({"Error": "Name not found"}))
+            }
+            return HttpResponse(json.dumps(data))
+        except:
+            return HttpResponse(json.dumps({"Error": "Name not found"}))
         return HttpResponse()
 
 @csrf_exempt
 def add_user_achivment(request):
     if request.method == 'POST':
-        data = json.loads(request.body.decode())
-        if token_check(data.get("token")):
+        try:
+            data = json.loads(request.body.decode())
             Achivments.objects.create(
-                    achivment_name=data.get("achivment_name"),
-                    achivment_description=data.get("achivment_description"),
-                    achivment_icon_id=data.get("achivment_icon_id"),                   
+                        achivment_name=data.get("achivment_name"),
+                        achivment_description=data.get("achivment_description"),
+                        achivment_icon_id=data.get("achivment_icon_id"),                   
                 )
-            return HttpResponse(data.get("token"))
-    return HttpResponse()
-
-def generate_token(request):
-    if request.method == 'GET':
-        token = uuid4()
-        ActualTokens.objects.create(
-            token=token,                   
-            )
-        return HttpResponse(token)
-    return HttpResponse()
-
-@csrf_exempt
-def delete_token(request):
-    if request.method == "POST":
-        data = json.loads(request.body.decode())
-        ActualTokens.objects.get(token=data.get("token")).delete()
-    return HttpResponse()
+            return HttpResponse()
+        except:
+            data = json.loads(request.body.decode())
+            Achivments.objects.create(
+                        achivment_name=data.get("achivment_name"),
+                        achivment_description=data.get("achivment_description"),
+                        achivment_icon_id=data.get("achivment_icon_id"),                   
+                )
+            return HttpResponse(data.get("achivment_name"))
 
 
+class AchivmentsListCreateView(ListCreateAPIView):
+    queryset=Achivments.objects.all()
+    serializer_class=AchivmentsSerializer
+    permission_classes=[IsAuthenticated]
 
+    def perform_create(self, serializer):
+        user=self.request.user
+        serializer.save(user=user)
+
+    def list(self, request):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        queryset = self.get_queryset()
+        serializer = AchivmentsSerializer(queryset, many=True)
+        return Response(serializer.data[0])
+
+
+
+    

@@ -25,5 +25,5 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
 	
 	#path to our account's app endpoints
-    path("acc/",include("registration.urls"))
+    path("registration/",include("registration.urls"))
 ]

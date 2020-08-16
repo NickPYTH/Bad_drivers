@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Achivments
+from .models import Achivments, Users
 
 class UserSerializer(serializers.Serializer):
     user_name = serializers.CharField()
@@ -13,10 +13,21 @@ class UserSerializer(serializers.Serializer):
     decline_reports = serializers.IntegerField()
     processing_reports = serializers.IntegerField()
 
-class AchivmentsSerializer(serializers.Serializer):
+class AchivmentsSerializer1(serializers.Serializer):
     id = serializers.ImageField(read_only=True)
     achivment_name = serializers.CharField()
     achivment_description = serializers.CharField(style={'base_template': 'textarea.html'})
     achivment_icon_id = serializers.CharField()
 
+
+class AchivmentsSerializer(serializers.ModelSerializer):
+    user=serializers.StringRelatedField(read_only=True)
+    id = serializers.ImageField(read_only=True)
+    achivment_name = serializers.CharField(read_only=True)
+    achivment_description = serializers.CharField(read_only=True)
+    achivment_icon_id = serializers.CharField(read_only=True)
+
+    class Meta:
+        model=Achivments
+        fields='__all__'
 
