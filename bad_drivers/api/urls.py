@@ -1,12 +1,8 @@
 from django.urls import path, re_path
-from api import api_views
-from rest_framework.authtoken import views
-from .api_views import AchivmentsListCreateView
+from api import views
+from .views import CreateReport, GetUserReports
 
 urlpatterns = [
-    path('create-user', api_views.create_user),
-    path('get-user-info', api_views.get_user_info),
-    path('add-user-achivment', api_views.add_user_achivment),
-
-    path("view",AchivmentsListCreateView.as_view()),
+    path("create-report", CreateReport.as_view()),
+    path("get-user-reports-by-status", GetUserReports.as_view()),
 ]

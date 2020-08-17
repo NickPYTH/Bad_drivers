@@ -5,6 +5,6 @@ from .views import UserProfileListCreateView, UserProfileDetailView, UserProfile
 
 urlpatterns = [
     path("create-full-profile", UserProfileListCreateView.as_view()),
-    path("get-profile", UserProfileDetailView.as_view()),
+    path("get-profile", UserProfileDetailView.as_view()),   
     path("update-profile", UserProfileUpdate.as_view()),
 ]

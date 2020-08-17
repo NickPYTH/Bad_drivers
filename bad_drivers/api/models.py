@@ -1,15 +1,6 @@
 from django.db import models
-
-class Users(models.Model):
-  user_name = models.CharField(max_length = 30, default=None)
-  user_real_name = models.CharField(max_length= 30, default=None)
-  user_email = models.EmailField(default=None)
-  user_password = models.CharField(max_length = 30, default=None)
-  achivments_id = models.IntegerField(default=None)
-  recieved_reports = models.IntegerField(default=None)
-  send_reports = models.IntegerField(default=None)
-  decline_reports = models.IntegerField(default=None)
-  processing_reports = models.IntegerField(default=None)
+from registration import models as reg_models
+from bad_drivers import settings
 
 class Achivments(models.Model):
   #achivment_user = models.ForeignKey(Users, on_delete=models.CASCADE, default=0)
@@ -19,7 +10,16 @@ class Achivments(models.Model):
 
   #class Meta:
   #  ordering = ['id', 'achivment_user_id', 'achivment_name', 'achivment_description', 'achivment_icon_id']
-    
+
+
+class Reports(models.Model):
+  user = models.CharField(max_length=15, default=None)
+  report_description = models.CharField(max_length=50)
+  report_picture = models.ImageField(upload_to=settings.STATIC_URL, height_field=None, width_field=None, max_length=100)
+  
+  report_status = models.CharField(max_length=10, default="processing")
+
+     
 
 
   
