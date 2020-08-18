@@ -18,8 +18,8 @@ class UserProfileListCreateView(ListCreateAPIView):
         user=self.request.user
         serializer.save(user=user)
    
-   def list(self, request):
-	None
+    def list(self, request):
+	    None
 
 class UserProfileDetailView(ListCreateAPIView):
     queryset=userProfile.objects.all()
