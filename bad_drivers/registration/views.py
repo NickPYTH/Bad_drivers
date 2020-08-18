@@ -17,7 +17,9 @@ class UserProfileListCreateView(ListCreateAPIView):
     def perform_create(self, serializer):
         user=self.request.user
         serializer.save(user=user)
-
+   
+   def list(self, request):
+	None
 
 class UserProfileDetailView(ListCreateAPIView):
     queryset=userProfile.objects.all()
@@ -43,7 +45,7 @@ class UserProfileDetailView(ListCreateAPIView):
                     "decline_reports": user_info.decline_reports,
                     "processing_reports": user_info.processing_reports,
             }
-        return Response(json.dumps(data))
+        return Response(data)
 
 class UserProfileUpdate(ListCreateAPIView):
     queryset=userProfile.objects.all()

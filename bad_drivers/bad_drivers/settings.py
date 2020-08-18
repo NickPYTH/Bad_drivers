@@ -25,7 +25,7 @@ SECRET_KEY = 'pe&v^7#d55fwq$y(71tm(*h1e3h$2rlk=7=@9lo&yi#)g!u+&s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["89.223.122.251","localhost"]
 
 REST_FRAMEWORK = {
    'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -92,10 +92,10 @@ DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
        'NAME': 'postgres',
-       'USER': 'postgres',
+       'USER': 'nick',
        'PASSWORD': '27062000',
        'HOST': 'localhost',
-       'PORT': '5432',
+       'PORT': '',
    }
 }
 
@@ -143,3 +143,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
