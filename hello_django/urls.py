@@ -3,10 +3,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from upload.views import image_upload
+from upload.views import registration, login
 
 urlpatterns = [
-    path("registration/", image_upload, name="reg"),
+    path("registration/", registration, name="reg"),
+    path("login/", login, name="login"),
     path("admin/", admin.site.urls),
 ]
 

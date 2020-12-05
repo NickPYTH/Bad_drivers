@@ -7,7 +7,7 @@ from .models import User
 
 
 @csrf_exempt
-def image_upload(request):
+def registration(request):
     if request.method == "POST":
         name = request.POST.get('name')
         real_name = request.POST.get('real_name')
@@ -26,13 +26,30 @@ def image_upload(request):
             decline_report = decline_report,
             proccessing_report = proccessing_report
             )
+        return HttpResponse("")
+        
+    return HttpResponse("")
 
+
+@csrf_exempt
+def login(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        pass_ = request.POST.get('password')
+        user_data = User.objects.get(name=name, password=pass_)
+        print(user_data.name)
+        
         some_data_to_dump = {
-        'status': 'foo',
+            'name': user_data.name,
+            "real_name": user_data.real_name,
+            "password" : user_data.password,
+            "email" : user_data.email,
+            "send_report" : user_data.send_report,
+            "decline_report" : user_data.decline_report,
+            "proccessing_report" : user_data.proccessing_report
         }
         data = json.dumps(some_data_to_dump)
 
-        #return HttpResponse(data, content_type='application/json')
-        return HttpResponse("Hello World!")
+        return HttpResponse(data, content_type='application/json')
         
-    return HttpResponse("Hello World!")
+    return HttpResponse("")
