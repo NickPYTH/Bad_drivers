@@ -10,3 +10,10 @@ class User(models.Model):
     send_report = models.IntegerField()
     decline_report = models.IntegerField()
     proccessing_report = models.IntegerField()
+
+class Report(models.Model):
+    user_name = models.CharField(max_length=20)
+    description = models.TextField()
+    car_number = models.CharField(max_length=10)
+    image = models.FileField(upload_to=".")
+

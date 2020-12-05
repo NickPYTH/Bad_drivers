@@ -3,7 +3,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import User
+from .models import User, Report
 
 
 @csrf_exempt
@@ -51,5 +51,23 @@ def login(request):
         data = json.dumps(some_data_to_dump)
 
         return HttpResponse(data, content_type='application/json')
+        
+    return HttpResponse("")
+
+@csrf_exempt
+def push_report(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        desc = request.POST.get('description')
+        car_number = request.POST.get('car_number')
+        image_file = request.FILES["image"]
+        Report.objects.create(
+            user_name = name, 
+            description = desc,
+            image = image_file,
+            car_number = car_number,
+
+            )
+        return HttpResponse("")
         
     return HttpResponse("")
