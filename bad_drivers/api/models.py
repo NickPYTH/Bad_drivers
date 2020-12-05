@@ -8,8 +8,6 @@ class Achivments(models.Model):
   achivment_description = models.TextField()
   achivment_icon_id = models.CharField(max_length= 10)
 
-  #class Meta:
-  #  ordering = ['id', 'achivment_user_id', 'achivment_name', 'achivment_description', 'achivment_icon_id']
 
 
 class Reports(models.Model):
