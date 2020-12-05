@@ -99,6 +99,7 @@ def pull_report(request):
             tmp_dic["image2_link"]= user_data[i].image2_link
             tmp_dic["image3_link"]= user_data[i].image3_link
             records[i] = tmp_dic
+            tmp_dic = {}
 
         print(records)
         data = json.dumps(records)
