@@ -85,20 +85,23 @@ def push_report(request):
 def pull_report(request):
     if request.method == "POST":
         name = request.POST.get('name')
-        user_data = Report.objects.get(user_name=name)
-        print(user_data.image1)
-        some_data_to_dump = {
-            "user_name" : user_data.user_name,
-            "description" : user_data.description,
-            "car_number" : user_data.car_number,
-            "image1" : str(user_data.image1),
-            "image2" : str(user_data.image2),
-            "image3" : str(user_data.image3),
-            "image1_link" : str(user_data.image1_link),
-            "image2_link" : str(user_data.image2_link),
-            "image3_link" : str(user_data.image3_link),
-        }
-        data = json.dumps(some_data_to_dump)
+        user_data = Report.objects.filter(user_name=name)
+        length, records = {}, {}
+        tmp_lst = []
+        tmp_dic = {}
+        length['len'] = len(user_data)
+        records['len'] = length['len']
+        for i in range(len(user_data)):
+            tmp_dic["user_name" ] = user_data[i].user_name
+            tmp_dic["description"]= user_data[i].description
+            tmp_dic["car_number" ]= user_data[i].car_number
+            tmp_dic["image1_link"]= user_data[i].image1_link
+            tmp_dic["image2_link"]= user_data[i].image2_link
+            tmp_dic["image3_link"]= user_data[i].image3_link
+            records[i] = tmp_dic
+
+        print(records)
+        data = json.dumps(records)
 
         return HttpResponse(data, content_type='application/json')
         
