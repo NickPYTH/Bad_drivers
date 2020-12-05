@@ -21,4 +21,5 @@ class Report(models.Model):
     image2_link = models.CharField(max_length=20)
     image3 = models.FileField(upload_to=".")
     image3_link = models.CharField(max_length=20)
+    status = models.IntegerField(default=2)
 
