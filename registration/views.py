@@ -19,7 +19,8 @@ class UserProfileListCreateView(ListCreateAPIView):
         serializer.save(user=user)
    
     def list(self, request):
-	    None
+        None
+	    
         
 
 class UserProfileDetailView(ListCreateAPIView):
@@ -36,6 +37,7 @@ class UserProfileDetailView(ListCreateAPIView):
         return data
 
     def list(self, request):
+
         user_info = self.get_queryset()
         data = {
                     "user_name": user_info.user_name,
@@ -57,6 +59,7 @@ class UserProfileUpdate(ListCreateAPIView):
         None
 
     def list(self, request):
+        
         data = json.loads(request.body.decode())
         userProfile.objects.filter(user_name=self.request.user).update(
             user_name=data.get("user_name"),

@@ -13,7 +13,7 @@ class Achivment(models.Model):
 class Report(models.Model):
     user = models.CharField(max_length=15, default=None)
     report_description = models.CharField(max_length=50)
-    report_picture = models.ImageField(upload_to="static/", height_field=None, width_field=None, max_length=100)
+    report_picture = models.ImageField(upload_to="", height_field=None, width_field=None, max_length=100)
   
     report_status = models.CharField(max_length=10, default="processing")
 
