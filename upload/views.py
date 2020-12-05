@@ -63,14 +63,43 @@ def push_report(request):
         image1 = request.FILES["image1"]
         image2 = request.FILES["image2"]
         image3 = request.FILES["image3"]
+        image1_link = request.POST.get('image1_link')
+        image2_link = request.POST.get('image2_link')
+        image3_link = request.POST.get('image3_link')
         Report.objects.create(
             user_name = name, 
             description = desc,
             image1 = image1,
             image2 = image2,
             image3 = image3,
+            image1_link = image1_link,
+            image2_link = image2_link,
+            image3_link = image3_link,
             car_number = car_number,
             )
         return HttpResponse("")
+        
+    return HttpResponse("")
+
+@csrf_exempt
+def pull_report(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        user_data = Report.objects.get(user_name=name)
+        print(user_data.image1)
+        some_data_to_dump = {
+            "user_name" : user_data.user_name,
+            "description" : user_data.description,
+            "car_number" : user_data.car_number,
+            "image1" : str(user_data.image1),
+            "image2" : str(user_data.image2),
+            "image3" : str(user_data.image3),
+            "image1_link" : str(user_data.image1_link),
+            "image2_link" : str(user_data.image2_link),
+            "image3_link" : str(user_data.image3_link),
+        }
+        data = json.dumps(some_data_to_dump)
+
+        return HttpResponse(data, content_type='application/json')
         
     return HttpResponse("")

@@ -16,6 +16,9 @@ class Report(models.Model):
     description = models.TextField()
     car_number = models.CharField(max_length=10)
     image1 = models.FileField(upload_to=".")
+    image1_link = models.CharField(max_length=20)
     image2 = models.FileField(upload_to=".")
+    image2_link = models.CharField(max_length=20)
     image3 = models.FileField(upload_to=".")
+    image3_link = models.CharField(max_length=20)
 
