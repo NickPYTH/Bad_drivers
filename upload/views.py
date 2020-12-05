@@ -60,13 +60,16 @@ def push_report(request):
         name = request.POST.get('name')
         desc = request.POST.get('description')
         car_number = request.POST.get('car_number')
-        image_file = request.FILES["image"]
+        image1 = request.FILES["image1"]
+        image2 = request.FILES["image2"]
+        image3 = request.FILES["image3"]
         Report.objects.create(
             user_name = name, 
             description = desc,
-            image = image_file,
+            image1 = image1,
+            image2 = image2,
+            image3 = image3,
             car_number = car_number,
-
             )
         return HttpResponse("")
         
