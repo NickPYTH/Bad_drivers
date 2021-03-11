@@ -5,7 +5,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 from .serializers import RegisterSerializer
 from rest_framework import generics
-from rest_flex_fields.views import FlexFieldsModelViewSet
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
