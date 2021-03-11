@@ -2,10 +2,10 @@ version: '3.7'
 
 services:
   web:
-    build: ./Bad_drivers
+    build: ./bad_drivers
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./app/:/usr/src/app/
+      - ./bad_drivers/:/usr/src/bad_drivers/
     ports:
       - 8000:8000
     env_file:
@@ -16,6 +16,7 @@ services:
     image: postgres:12.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+      
     environment:
       - POSTGRES_USER=hello_django
       - POSTGRES_PASSWORD=hello_django
@@ -23,3 +24,5 @@ services:
 
 volumes:
   postgres_data:
+
+      
