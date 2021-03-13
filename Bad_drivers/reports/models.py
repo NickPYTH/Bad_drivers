@@ -17,6 +17,7 @@ class Car(models.Model):
         return str(str(self.car_number) + str(self.car_region))
 
 class Report(models.Model):
+    user_name = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Username', null=True, blank=True)
     car_number = models.CharField(max_length=6)
     car_region = models.CharField(max_length=3)
     car_country = models.CharField(max_length=3)

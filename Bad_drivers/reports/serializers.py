@@ -22,6 +22,7 @@ class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = (
+            'user_name',
             'car_number', 
             'car_region',
             'car_country', 
@@ -39,7 +40,7 @@ class ReportSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        
+        print("ffffffffffffffffffffffffffffffffffffffff123213")
         #if attrs['password'] != attrs['password2']:
         #    raise serializers.ValidationError({"password": "Password fields didn't match."})
 
@@ -53,8 +54,9 @@ class ReportSerializer(serializers.ModelSerializer):
                             )
 
         car.save()
-
+        
         report = Report.objects.create(
+            user_name=User.objects.get(username=validated_data['user_name']),
             car_number=validated_data['car_number'],
             car_region=validated_data['car_region'],
             car_country=validated_data['car_country'],

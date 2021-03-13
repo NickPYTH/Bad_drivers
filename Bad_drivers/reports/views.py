@@ -6,6 +6,6 @@ from .models import Report
 
 class ReportView(generics.CreateAPIView):
     queryset = Report.objects.all()
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    #authentication_classes = [BasicAuthentication, ] # SessionAuthentication
+    permission_classes = (IsAuthenticated,)
     serializer_class = ReportSerializer
