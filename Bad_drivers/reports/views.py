@@ -9,15 +9,15 @@ from rest_framework.response import Response
 class SendReportView(generics.CreateAPIView):
     queryset = Report.objects.all()
     #authentication_classes = [AllowAny, ] # SessionAuthentication
-    #permission_classes = (IsAuthenticated,)
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    #permission_classes = (AllowAny,)
     serializer_class = ReportSerializer
 
 class UserReportList(generics.ListCreateAPIView):
     queryset = Report.objects.all()
     #serializer_class = UserSerializer
     #permission_classes = [IsAdminUser]
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = ReportSerializer
 
     def list(self, request):
