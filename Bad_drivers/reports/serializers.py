@@ -5,9 +5,15 @@ from rest_framework.validators import UniqueValidator
 from .models import Report, Car
 
 
+class UserSerializer(serializers.ModelSerializer):  
+
+    class Meta:
+        model = User
+        fields = ('is_superuser', 'groups', 'user_permissions', 'password', 'last_login', 'username', 'email',  'is_active', 'first_name', 'last_name', 'is_staff', 'date_joined')
 
 class ReportSerializer(serializers.ModelSerializer):
 
+    user_name = serializers.CharField(required=True)
     car_number = serializers.CharField(required=True)
     car_region = serializers.CharField(required=True)
     car_country = serializers.CharField(required=True)
@@ -40,7 +46,7 @@ class ReportSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        print("ffffffffffffffffffffffffffffffffffffffff123213")
+        
         #if attrs['password'] != attrs['password2']:
         #    raise serializers.ValidationError({"password": "Password fields didn't match."})
 
