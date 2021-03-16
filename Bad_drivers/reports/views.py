@@ -25,4 +25,14 @@ class UserReportList(generics.ListCreateAPIView):
         serializer = ReportSerializer(queryset.filter(user_name=request.user), many=True)
         return Response(serializer.data)
 
+class UserInfoList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = UserSerializer(queryset.filter(username=request.user), many=True)
+        return Response(serializer.data)
+
 
