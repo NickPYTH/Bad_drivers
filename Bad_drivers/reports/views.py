@@ -33,6 +33,7 @@ class UserInfoList(generics.ListCreateAPIView):
     def list(self, request):
         queryset = self.get_queryset()
         serializer = UserSerializer(queryset.filter(username=request.user), many=True)
+        
         return Response(serializer.data)
 
 

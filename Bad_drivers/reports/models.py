@@ -22,7 +22,7 @@ class Report(models.Model):
     car_region = models.CharField(max_length=3)
     car_country = models.CharField(max_length=3)
     data = models.DateTimeField()
-    status = models.BooleanField()
+    status = models.IntegerField(default=0)
     description = models.TextField()
 
     image_1 = models.ImageField(upload_to="reports_images")
