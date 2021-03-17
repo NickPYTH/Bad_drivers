@@ -35,18 +35,5 @@ class Report(models.Model):
 
     def __str__(self):
         return str(str("self.data.date") + str(self.status))
-
-class Achivments(models.Model):
-    achivment_name = models.CharField(max_length=20)
-    achivment_description = models.TextField()
-    achivment_image = models.ImageField(upload_to="achivments_images")
-
-    class Meta:
-        verbose_name = "Достижение"
-        verbose_name_plural = "Достижения"
-
-    def __str__(self):
-        return str(self.achivment_name)
-
     
     

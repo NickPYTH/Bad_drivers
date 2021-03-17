@@ -9,6 +9,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('auth/', include('authentication.urls')),
     path('reports/', include('reports.urls')),
+    path('achivments/', include('achivments.urls')),
 ]
 
 if bool(settings.DEBUG):
