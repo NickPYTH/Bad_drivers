@@ -10,8 +10,8 @@ class Car(models.Model):
     car_country = models.CharField(max_length=3)
 
     class Meta:
-        verbose_name = "Автомобили"
-        verbose_name_plural = "Таблица автомобилей"
+        verbose_name = "Автомобиль"
+        verbose_name_plural = "Автомобили"
 
     def __str__(self):
         return str(str(self.car_number) + str(self.car_region))
@@ -30,11 +30,23 @@ class Report(models.Model):
     image_3 = models.ImageField(upload_to="reports_images")
 
     class Meta:
-        verbose_name = "Жалобы"
-        verbose_name_plural = "Таблица жалоб"
+        verbose_name = "Жалоба"
+        verbose_name_plural = "Жалобы"
 
     def __str__(self):
         return str(str("self.data.date") + str(self.status))
+
+class Achivments(models.Model):
+    achivment_name = models.CharField(max_length=20)
+    achivment_description = models.TextField()
+    achivment_image = models.ImageField(upload_to="achivments_images")
+
+    class Meta:
+        verbose_name = "Достижение"
+        verbose_name_plural = "Достижения"
+
+    def __str__(self):
+        return str(self.achivment_name)
 
     
     
