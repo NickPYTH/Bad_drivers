@@ -1,5 +1,4 @@
 version: '3.7'
-
 services:
   web:
     build: ./bad_drivers
@@ -9,7 +8,7 @@ services:
     ports:
       - 7000:8000
     env_file:
-      - ./.env.dev
+      - ./.env
     depends_on:
       - db
   db:
