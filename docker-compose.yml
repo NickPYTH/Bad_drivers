@@ -1,10 +1,10 @@
 version: '3.7'
 services:
   web:
-    build: ./bad_drivers
+    build: ./Bad_drivers
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./bad_drivers/:/usr/src/bad_drivers/
+      - ./Bad_drivers/:/usr/src/bad_drivers/
     ports:
       - 7000:8000
     env_file:
