@@ -3,6 +3,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from .models import Achivment, UserAchivment
+from minio import Minio
+from io import BytesIO
 
 
 class AchivmentSerializer(serializers.ModelSerializer):
@@ -30,12 +32,28 @@ class AchivmentSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        import tempfile
+
+        client = Minio("188.225.83.42:9000", "minioadmin", "minioadmin", secure=False)
+        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
+        tmp_file.write(validated_data['big_image'].read())
+        big_image = client.fput_object(
+            "baddrivers", str(validated_data['achivment_name']) + "_big.jpg", tmp_file.name
+        )
+        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
+        tmp_file.write(validated_data['small_image'].read())
+        small_image = client.fput_object(
+            "baddrivers", str(validated_data['achivment_name']) + "_small.jpg", tmp_file.name
+        )
+
         achivment = Achivment.objects.create(
             achivment_name=validated_data['achivment_name'], 
             achivment_description=validated_data['achivment_description'],
-            small_image=validated_data['small_image'],
-            big_image=validated_data['big_image'],
+            small_image=str(validated_data['achivment_name']) + "_small.jpg",
+            big_image=str(validated_data['achivment_name']) + "_big.jpg",
         )
+
+
 
         return achivment
 

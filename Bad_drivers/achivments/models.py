@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 class Achivment(models.Model):
     achivment_name = models.CharField(max_length=20, unique=True)
     achivment_description = models.TextField()
-    big_image = models.ImageField(upload_to="achivments_images")
-    small_image = models.ImageField(upload_to="achivments_images")
+    big_image = models.CharField(max_length=200)
+    small_image = models.CharField(max_length=200)
 
     class Meta:
         verbose_name = "Достижение"
