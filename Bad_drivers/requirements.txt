@@ -10,4 +10,4 @@ django-minio
 #django-versatileimagefield
 #drf-flex-fields
 #pandas # its work
-Pillow==6.2.0
+Pillow==8.1.1
