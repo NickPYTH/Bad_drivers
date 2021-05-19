@@ -97,23 +97,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bad_drivers.wsgi.application'
 
-'''DATABASES = {
+DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        "NAME": "hello_django_dev",
+        "NAME": "postgres",
         "USER": os.environ.get("SQL_USER", "user"),
         "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
         "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "PORT": os.environ.get("SQL_PORT", "3522"),
     }
-}'''
+}
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR , 'db.sqlite3'),
     }
-}
+}'''
 
 AUTH_PASSWORD_VALIDATORS = [
     {
