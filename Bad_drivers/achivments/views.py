@@ -7,7 +7,7 @@ from .models import Achivment, UserAchivment
 from rest_framework.response import Response
 
 class CreateAchivmentView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = AchivmentSerializer
 
 class CreateUserAchivmentView(generics.CreateAPIView):

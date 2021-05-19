@@ -100,14 +100,13 @@ WSGI_APPLICATION = 'bad_drivers.wsgi.application'
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        "NAME": "postgres",
-        "USER": 'nick_postgres',
-        "PASSWORD": 'vfqythscjcen!!!11',
-        "HOST": '0.0.0.0',
-        "PORT": '3522',
+        "NAME": "bad_drivers",
+        "USER": 'postgres',
+        "PASSWORD": 'VFQYTHSCJCEN',
+        "HOST": '188.225.83.42',
+        "PORT": '4535',
     }
 }
-
 '''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
