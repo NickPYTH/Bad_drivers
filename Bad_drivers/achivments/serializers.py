@@ -7,7 +7,7 @@ from .models import Achivment, UserAchivment
 
 class AchivmentSerializer(serializers.ModelSerializer):
 
-    achivment_name = serializers.CharField(required=True)
+    achivment_name = serializers.CharField(required=True, validators=[UniqueValidator(queryset=Achivment.objects.all())])
     achivment_description = serializers.CharField(required=True)
     small_image = serializers.ImageField(required=True)
     big_image = serializers.ImageField(required=True)
@@ -27,6 +27,8 @@ class AchivmentSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
+        if len(attrs['achivment_name']) < 3:
+            raise serializers.ValidationError({"achivment_name": "achivment_name must be longer than 3 characters"})
         return attrs
 
     def create(self, validated_data):

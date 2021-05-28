@@ -4,21 +4,27 @@ from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     @classmethod
     def get_token(cls, user):
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
 
-        # Add custom claims
         token['username'] = user.username
         return token
 
+
 class RegisterSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+
     email = serializers.EmailField(
-            required=True,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
 
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
@@ -34,6 +40,12 @@ class RegisterSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Password fields didn't match"})
+        if len(attrs['username']) < 4:
+            raise serializers.ValidationError({"username": "Username must be longer than 3 characters"})
+        if len(attrs['first_name']) < 3:
+            raise serializers.ValidationError({"first_name": "first_name must be longer than 2 characters"})
+        if len(attrs['last_name']) < 3:
+            raise serializers.ValidationError({"last_name": "last_name must be longer than 2 characters"})
 
         return attrs
 
@@ -45,11 +57,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             last_name=validated_data['last_name']
         )
 
-        
         user.set_password(validated_data['password'])
         user.save()
 
         return user
-
-  
-        
