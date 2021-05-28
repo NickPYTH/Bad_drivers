@@ -30,4 +30,3 @@ class UserAchivment(models.Model):
         return '{0}  {1}'.format(str(self.user.username), str(self.achivment.achivment_name))
 
 
-

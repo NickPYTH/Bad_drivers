@@ -14,16 +14,12 @@ services:
   db:
     image: postgres:12.0-alpine
     volumes:
-      - ./init.sql:/var/lib/postgresql/data/
-
-    restart: always
+      - postgres_data:/var/lib/postgresql/data/
+      
     environment:
-      - POSTGRES_USER=nick_postgres
-      - POSTGRES_PASSWORD=vfqythscjcen!!!11
-      - POSTGRES_DB=postgres
-
-    ports: 
-      - 5432:5432
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
 
 volumes:
   postgres_data:
