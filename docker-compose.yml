@@ -2,7 +2,7 @@ version: '3.7'
 services:
   web:
     build: ./Bad_drivers
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn bad_drivers.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./Bad_drivers/:/usr/src/bad_drivers/
     ports:
@@ -20,6 +20,9 @@ services:
       - POSTGRES_USER=hello_django
       - POSTGRES_PASSWORD=hello_django
       - POSTGRES_DB=hello_django_dev
+    
+    ports:
+      - 5432:5432
 
 volumes:
   postgres_data:
