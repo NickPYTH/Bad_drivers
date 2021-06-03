@@ -2,6 +2,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
+from django.core import validators
 from django.contrib.auth.password_validation import validate_password
 
 
@@ -23,7 +24,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField(
         required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())]
+        validators=[UniqueValidator(queryset=User.objects.all()),
+                    validators.EmailValidator("Неверный формат email")]
     )
 
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])

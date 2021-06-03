@@ -1,17 +1,18 @@
 import psycopg2
-from contextlib import closing
+import sys
 
 class BadDriversSeed():
     """Class for seeding testing values"""
     __cursor = None
     __connection = None
+
     def __init__(self):
         self.__connection = psycopg2.connect(
-                    user="hello_django",
-                    password="hello_django",
-                    host="127.0.0.1",
-                    port="5432",
-                    database="postgres")
+            user=sys.argv[1],
+            password=sys.argv[2],
+            host=sys.argv[3],
+            port=sys.argv[4],
+            database=sys.argv[5])
         self.__cursor = self.__connection.cursor()
 
     def reports_car_table_seed(self, *args):
@@ -57,7 +58,7 @@ class BadDriversSeed():
                     self.__cursor.close()
                     self.__connection.close()
                     print("Conection is closed")
-    
+
     def reports_car_table_seed(self, *args):
         if len(args) == 3:
             data_to_insert = []
@@ -78,4 +79,3 @@ class BadDriversSeed():
                     self.__cursor.close()
                     self.__connection.close()
                     print("Conection is closed")
-        

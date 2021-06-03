@@ -1,11 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from versatileimagefield.fields import VersatileImageField, PPOIField
-from PIL import Image
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core import validators
+
 
 class Car(models.Model):
-    car_number = models.CharField(max_length=6)
+    car_number = models.CharField(max_length=6,
+                                  validators=[validators.MinLengthValidator(6, message="Слишком короткий "
+                                                                                       "номер машины"),
+                                              validators.MaxLengthValidator(6, message="Слишком длинный "
+                                                                                       "номер машины")]
+                                  )
     car_region = models.CharField(max_length=3)
     car_country = models.CharField(max_length=3)
 
@@ -16,9 +20,15 @@ class Car(models.Model):
     def __str__(self):
         return str(str(self.car_number) + str(self.car_region))
 
+
 class Report(models.Model):
     user_name = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Username', null=True, blank=True)
-    car_number = models.CharField(max_length=6)
+    car_number = models.CharField(max_length=6,
+                                  validators=[validators.MinLengthValidator(6, message="Слишком короткий "
+                                                                                       "номер машины"),
+                                              validators.MaxLengthValidator(6, message="Слишком длинный "
+                                                                                       "номер машины")]
+                                  )
     car_region = models.CharField(max_length=3)
     car_country = models.CharField(max_length=3)
     data = models.DateTimeField()
@@ -35,5 +45,3 @@ class Report(models.Model):
 
     def __str__(self):
         return str(str("self.data.date") + str(self.status))
-    
-    

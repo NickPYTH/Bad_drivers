@@ -20,5 +20,5 @@ COPY ./entrypoint.sh .
 
 COPY . .
 
-# run entrypoint.sh   chmod +x entrypoint.sh
+RUN chmod +x entrypoint.sh
 ENTRYPOINT ["/usr/src/bad_drivers/entrypoint.sh"]
